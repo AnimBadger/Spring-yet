@@ -1,9 +1,5 @@
 package dev.stephen.weatherapi.provider;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import dev.stephen.weatherapi.model.response.CityCoordinatesResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,17 +12,6 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -39,7 +24,7 @@ public class GeocodingProvider {
     private String geocodingUrl;
 
     public static final int LIMIT = 1;
-    public CityCoordinatesResponse getCoordinates(String sessionId, String city) throws Exception {
+    public CityCoordinatesResponse getCoordinates(String sessionId, String city) {
         log.info("[{}] about to make get request to geolocation api for {}", sessionId, city);
         RestTemplate restTemplate = new RestTemplate();
         final ResponseEntity<CityCoordinatesResponse[]> coordinates;

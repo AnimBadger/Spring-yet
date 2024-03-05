@@ -1,5 +1,6 @@
 package dev.stephen.weatherapi.resource;
 import dev.stephen.weatherapi.model.response.CityCoordinatesResponse;
+import dev.stephen.weatherapi.model.response.WeatherResponse;
 import dev.stephen.weatherapi.service.WeatherService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class WeatherResource {
     private final WeatherService weatherService;
     @GetMapping("weather/{city}")
-    public ResponseEntity<CityCoordinatesResponse> getWeather(@PathVariable String city, HttpServletRequest request) throws Exception {
+    public ResponseEntity<WeatherResponse> getWeather(@PathVariable String city, HttpServletRequest request) throws Exception {
         String sessionId = request.getSession().getId();
         log.info("[{}] about to get weather for {} in service", sessionId, city);
-        CityCoordinatesResponse response = weatherService.getWeather(sessionId, city);
+        WeatherResponse response = weatherService.getWeather(sessionId, city);
         return ResponseEntity.ok(response);
     }
 }
