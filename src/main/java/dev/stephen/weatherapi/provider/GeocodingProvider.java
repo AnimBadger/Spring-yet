@@ -3,16 +3,13 @@ package dev.stephen.weatherapi.provider;
 import dev.stephen.weatherapi.model.response.CityCoordinatesResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import java.util.Objects;
+
 
 @Service
 @Slf4j
@@ -49,6 +46,16 @@ public class GeocodingProvider {
             };
         }
         log.info("[{}] done building uri", sessionId);
-        return Objects.requireNonNull(coordinates.getBody())[0];
+        try {
+            if (coordinates.getBody() != null) {
+                return coordinates.getBody()[0];
+            } else {
+                log.info("[{}] City coordinates not found", sessionId);
+                throw new HttpStatusCodeException(HttpStatus.NOT_FOUND) {};
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            log.info("[{}] City coordinates not found", sessionId);
+            throw new HttpStatusCodeException(HttpStatus.NOT_FOUND) {};
+        }
     }
 }

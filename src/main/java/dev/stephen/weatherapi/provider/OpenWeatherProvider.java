@@ -1,6 +1,6 @@
 package dev.stephen.weatherapi.provider;
 
-import dev.stephen.weatherapi.model.response.CityCoordinatesResponseEntity;
+import dev.stephen.weatherapi.model.response.CityCoordinatesResponse;
 import dev.stephen.weatherapi.model.response.WeatherResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class OpenWeatherProvider {
     private String openWeatherUrl;
     @Value("${geographic.api}")
     private String apikey;
-    public WeatherResponse getCityWeather(String sessionId, CityCoordinatesResponseEntity coordinates){
+    public WeatherResponse getCityWeather(String sessionId, CityCoordinatesResponse coordinates){
         RestTemplate restTemplate = new RestTemplate();
         final ResponseEntity<WeatherResponse> weatherResponse;
         HttpEntity<String> requestEntity = new HttpEntity<>(null, null);
