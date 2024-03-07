@@ -24,10 +24,11 @@ public class OpenWeatherProvider {
     @Value("${geographic.api}")
     private String apikey;
     public WeatherResponse getCityWeather(String sessionId, CityCoordinatesResponse coordinates){
+        log.info("[{}] about to request weather from open weather", sessionId);
         RestTemplate restTemplate = new RestTemplate();
         final ResponseEntity<WeatherResponse> weatherResponse;
         HttpEntity<String> requestEntity = new HttpEntity<>(null, null);
-
+        log.info("[{}] building url for weather details", sessionId);
         UriComponents urlBuilder = UriComponentsBuilder.fromHttpUrl(openWeatherUrl)
                 .queryParam("lat", coordinates.getLatitude())
                 .queryParam("lon", coordinates.getLongitude())
