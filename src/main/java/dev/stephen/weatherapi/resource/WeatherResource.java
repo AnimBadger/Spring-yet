@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WeatherResource {
     private final WeatherService weatherService;
     @GetMapping("weather/{city}")
-    public ResponseEntity<WeatherResponse> getWeather(@PathVariable String city, HttpServletRequest request) throws Exception {
+    public ResponseEntity<WeatherResponse> getWeather(@PathVariable String city, HttpServletRequest request) {
         String sessionId = request.getSession().getId();
         log.info("[{}] about to get weather for {} in service", sessionId, city);
         WeatherResponse response = weatherService.getWeather(sessionId, city);

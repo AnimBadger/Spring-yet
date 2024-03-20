@@ -15,7 +15,7 @@ public class WeatherService {
     private final GeocodingProvider geocodingProvider;
     private final OpenWeatherProvider openWeatherProvider;
     public WeatherResponse getWeather(String sessionId, String city) {
-        log.info("[{}] service making request for {}", sessionId, city);
+        log.info("[{}] service making request for coordinates of {}", sessionId, city);
         // get coordinates for city
         CityCoordinatesResponse cityCoordinates = geocodingProvider.getCoordinates(sessionId, city);
         // get city weather
